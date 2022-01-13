@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{commons/layout}">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Warehouse Management System</title>
+<link rel="stylesheet" type="text/css"
+href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+href="css/bootstrap-table.css">
+<link rel="stylesheet" type="text/css"
+href="css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" type="text/css"
+href="css/jquery-ui.css">
+<link rel="stylesheet" type="text/css"
+href="css/jquery.mloading.css">
+<link rel="stylesheet" type="text/css"
+href="css/mainPage.css">
+</head>
+<body>
+
+<!-- Navigation bar -->
+<div id="navBar">
+<!-- Load top navigation bar here -->
+<!-- Navigation bar -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<!-- Navigation bar title -->
+<div class="navbar-header">
+<a href="javascript:void(0)" class="navbar-brand home">Warehouse Management System</a>
+</div>
+
+<!-- Navigation bar drop-down menu; user information and logout login-->
+<div>
+<ul class="nav navbar-nav navbar-right">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle"
+data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span>
+<span>Welcome&nbsp;</span> <span id="nav_userName">Username:</span>
+<span class="caret"></span>
+</a>
+<ul class="dropdown-menu">
+<shiro:hasRole name="commonsAdmin">
+<li>
+<a href="#" id="editInfo"> <span
+class="glyphicon glyphicon-pencil"></span> &nbsp;&nbsp;Modify Personal Information</a></li>
+</shiro:hasRole>
+<li>
+<a href="javascript:void(0)" id="signOut"> <span
+class="glyphicon glyphicon-off"></span> &nbsp;&nbsp;Logout </a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+</div>
+
+<div class="container-fluid" style="padding-left: 0px;">
+<div class="row">
+<!-- left navigation bar -->
+<div id="sideBar" class="col-md-2 col-sm-3">
+<!-- Load left navigation bar here -->
+<!-- left navigation bar -->
+<div class="panel-group" id="accordion">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h4 class="panel-title">
+<a href="#collapse1" data-toggle="collapse" data-parent="#accordion"
+class="parentMenuTitle collapseHead">Inventory Management</a>
+<div class="pull-right">
+<span class="caret"></span>
+</div>
+</h4>
+</div>
+<div id="collapse1" class="panel-collapse collapse collapseBody">
+<div class="panel-body">
+<ul class="list-group">
+<shiro:hasRole name="commonsAdmin">
+<li class="list-group-item">
+<a href="javascript:void(0)" id="" class="menu_item"
+name="pagecomponent/storageManagementCommon.jsp">Inventory query</a>
+</li>
+</shiro:hasRole>
+<shiro:hasRole name="systemAdmin">
+<li class="list-group-item">
+<a href="javascript:void(0)" id="" class="menu_item"
+name="pagecomponent/storageManagement.jsp">Inventory query</a>
+</li>
+<li class="list-group-item">
+<a href="javascript:void(0)" id=""
+class="menu_item"
+name="pagecomponent/stockRecordManagement.jsp">In and out stock records</a>
+</li>
+</shiro:hasRole>
+</ul>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<h4 class="panel-title">
+<a href="#collapse2" data-toggle="collapse" data-parent="#accordion"
+class="parentMenuTitle collapseHead">Inbound and outbound management</a>
+<div class="pull-right">
+<span class="caret"></span>
+</div>
+</h4>
+</div>
+<div id="collapse2" class="panel-collapse collapse collapseBody in">
+<div class="panel-body">
+<shiro:hasRole name="systemAdmin">
+<ul class="list-group">
+<li class="list-group-item">
+<a href="javascript:void(0)" id="" class="menu_item"
+name="pagecomponent/stock-inManagement.jsp">Goods in stock</a>
+</li>
+<li class="list-group-item">
+<a href="javascript:void(0)" id="" class="menu_item"
+name="pagecomponent/stock-outManagement.jsp">Goods out of stock</a>
+</li>
+</ul>
+</shiro:hasRole>
+<shiro:hasRole name="commonsAdmin">
+<ul class="list-group">
+<li class="list-group-item">
+<a href="javascript:void(0)" id="" class="menu_item"
+name="pagecomponent/stock-inManagementCommon.jsp">Goods in stock</a>
+</li>
+<li class="list-group-item">
+<a href="javascript:void(0)" id="" class="menu_item"
+name="pagecomponent/stock-outManagementCommon.jsp">Goods out of stock</a>
+</li>
+</ul>
+</shiro:hasRole>
+</div>
+</div>
+</div>
+<shiro:hasRole name="systemAdmin">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h4 class="panel-title">
+<a href="#collapse3" data-toggle="collapse" data-parent="#accordion"
+class="parentMenuTitle collapseHead">Personnel Management</a>
+<div class="pull-right">
+<span class="caret"></span>
+</div>
+</h4>
+</div>
+<div id="collapse3" class="panel-collapse collapse collapseBody">
+<div class="panel-body">
+<ul class="list-group">
+<li class="list-group-item">
+<a href="javascript:void(0)" id="" class="menu_item"
+name="pagecomponent/repositoryAdminManagement.jsp">Warehouse administrator management</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</shiro:hasRole>
+<shiro:hasRole name="systemAdmin">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h4 class="panel-title">
+<a href="#collapse4" data-toggle="collapse" data-parent="#accordion"
+class="parentMenuTitle collapseHead">Base data</a>
+<div class="pull-right">
+<span class="caret"></span>
+</div>
+</h4>
+</div>
+<div id="collapse4" class="panel-collapse collapse collapseBody">
+<div class="panel-body">
+<ul class="list-group">
+<li class="list-group-item">
+<a href="javascript:void(0)" id="" class="menu_item"
+name="pagecomponent/supplierManagement.jsp">Supplier Information Management</a>
+</li>
+<li class="list-group-item">
+<a href="javascript:void(0)" id="" class="menu_item"
+name="pagecomponent/customerManagement.jsp">Customer Information Management</a>
+</li>
+<li class="list-group-item">
+<a href="javascript:void(0)" id="" class="menu_item"
+name="pagecomponent/goodsManagement.jsp">Goods Information Management</a>
+</li>
+<li class="list-group-item">
+<a href="javascript:void(0)" id="" class="menu_item"
+name="pagecomponent/repositoryManagement.jsp">Repository Information Management</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</shiro:hasRole>
+<div class="panel panel-default">
+<div class="panel-heading">
+<h4 class="panel-title">
+<a href="#collapse5" data-toggle="collapse" data-parent="#accordion"
+class="parentMenuTitle collapseHead">System Maintenance</a>
+<div class="pull-right "><span class="caret"></span></div>
+</h4>
+</div>
+<div id="collapse5" class="panel-collapse collapse collapseBody">
+<div class="panel-body">
+<ul class="list-group">
+<li class="list-group-item">
+<a href="javascript:void(0)" id="" class="menu_item"
+name="pagecomponent/passwordModification.jsp">Change Password</a>
+</li>
+<shiro:hasRole name="systemAdmin">
+<li class="list-group-item">
+<a href="javascript:void(0)" id=""
+class="menu_item" name="pagecomponent/userOperationRecorderManagement.jsp">System log</a>
+</li>
+<li class="list-group-item">
+<a href="javascript:void(0)" id=""
+class="menu_item" name="pagecomponent/accessRecordManagement.jsp">Login log</a>
+</li>
+</shiro:hasRole>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Panel area -->
+<div id="panel" class="col-md-10 col-sm-9">
+<!-- Load each panel asynchronously here-->
+
+<!-- Welcome screen-->
+<div class="panel panel-default">
+<!-- breadcrumbs -->
+<ol class="breadcrumb">
+<li>Home</li>
+</ol>
+
+<div class="panel-body">
+<div class="row" style="margin-top: 100px; margin-bottom: 100px">
+<div class="col-md-1"></div>
+<div class="col-md-10" style="text-align: center">
+<div class="col-md-4 col-sm-4">
+<a href="javascript:void(0)" class="thumbnail shortcut"> <img
+src="media/icons/stock_search-512.png" alt="Stock Search"
+class="img-rounded link" style="width: 150px; height: 150px;">
+<div class="caption">
+<h3 class="title">Inventory query</h3>
+</div>
+</a>
+</div>
+<div class="col-md-4 col-sm-4">
+<a href="javascript:void(0)" class="thumbnail shortcut"> <img
+src="media/icons/stock_in-512.png" alt="Goods in stock"
+class="img-rounded link" style="width: 150px; height: 150px;">
+<div class="caption">
+<h3 class="title">Goods in storage</h3>
+</div>
+</a>
+</div>
+<div class="col-md-4 col-sm-4">
+<a href="javascript:void(0)" class="thumbnail shortcut"> <img
+src="media/icons/stock_out-512.png" alt="Goods out of stock"
+class="img-rounded link" style="width: 150px; height: 150px;">
+<div class="caption">
+<h3 class="title">Goods outbound</h3>
+</div>
+</a>
+</div>
+</div>
+<div class="col-md-1"></div>
+</div>
+</div>
+</div>
+
+<!-- end -->
+</div>
+</div>
+</div>
+
+
+<!-- Prompt message modal box-->
+<div class="modal fade" id="global_info_modal" table-index="-1" role="dialog"
+aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button class="close" type="button" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h4 class="modal-title" id="myModalLabel">Information</h4>
+</div>
+<div class="modal-body">
+<div class="row">
+<div class="col-md-4 col-sm-4"></div>
+<div class="col-md-4 col-sm-4">
+<div id="info_success" class=" hide" style="text-align: center;">
+<img src="media/icons/success-icon.png" alt=""
+style="width: 100px; height: 100px;">
+</div>
+<div id="info_error" style="text-align: center;">
+<img src="media/icons/error-icon.png" alt=""
+style="width: 100px; height: 100px;">
+</div>
+</div>
+<div class="col-md-4 col-sm-4"></div>
+</div>
+<div class="row" style="margin-top: 10px">
+<div class="col-md-3"></div>
+<div class="col-md-6" style="text-align: center;">
+<h4 id="info_summary"></h4>
+</div>
+<div class="col-md-3"></div>
+</div>
+<dic class="row" style="margin-top: 10px">
+<div class="col-md-3"></div>
+<div class="col-md-6" style="text-align: center;">
+<p id='info_content'></p>
+</div>
+<div class="col-md-3"></div>
+</dic>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" type="button" data-dismiss="modal">
+<span>&nbsp;&nbsp;&nbsp;Close&nbsp;&nbsp;&nbsp;</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Initial password modification box-->
+<div class="modal fade" id="init_password_modify" table-index="-1" role="dialog"
+aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<h4 class="modal-title" id="myModalLabel">Change initial password</h4>
+</div>
+<div class="modal-body">
+<div class="row" style="margin-top: 25px">
+<div class="col-md-1 col-sm-1"></div>
+<div class="col-md-10 col-sm-10">
+
+<form action="" class="form-horizontal" style=""
+role="form" id="form">
+<div class="form-group">
+<label for="" class="control-label col-md-4 col-sm-4"> User ID: </label>
+<div class="col-md-6 col-sm-6">
+<span class="hidden" id="userID">${sessionScope.userInfo.userID }</span>
+<span class="hidden" id="isFirstLogin">${sessionScope.userInfo.firstLogin}</span>
+<p class="form-control-static">${sessionScope.userInfo.userID }</p>
+</div>
+</div>
+
+<div class="form-group">
+<label for="" class="control-label col-md-4 col-sm-4"> Enter original password: </label>
+<div class="col-md-6 col-sm-6">
+<input type="password" class="form-control" id="oldPassword"
+name="oldPassword">
+</div>
+</div>
+
+<div class="form-group">
+<label for="" class="control-label col-md-4 col-sm-4"> Enter new password: </label>
+<div class="col-md-6 col-sm-6">
+<input type="password" class="form-control" id="newPassword"
+name="newPassword">
+</div>
+</div>
+
+<div class="form-group">
+<label for="" class="control-label col-md-4 col-sm-4"> Confirm new password: </label>
+<div class="col-md-6 col-sm-6 has-feedback">
+<input type="password" class="form-control" id="newPassword_re"
+name="newPassword_re">
+</div>
+</div>
+<input id="reset" type="reset" style="display:none">
+</form>
+
+</div>
+<div class="col-md-1 col-sm-1"></div>
+</div>
+
+<div class="row">
+<div class="col-md-1 col-sm-1"></div>
+<div class="col-md-10 col-sm-10">
+<div class="alert alert-info" style="margin-top: 25px">
+<p>Login password modification rules description:</p>
+<p>1. The length of the password is 6~16 digits, and it contains at least two types of numbers, letters, and special symbols. The letters are case-sensitive</p>
+<p>2. The password cannot be the same as the account number</p>
+</div>
+</div>
+<div class="col-md-1 col-sm-1"></div>
+</div>
+</div>
+<div class="modal-footer">
+<button class="btn btn-success" id="init_password_modify_submit">
+<span>&nbsp;&nbsp;&nbsp;Make changes&nbsp;&nbsp;&nbsp;</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+
+
+<script type="text/javascript"
+src="js/jquery-2.2.3.min.js"></script>
+<script type="text/javascript"
+src="js/bootstrap.min.js"></script>
+<script type="text/javascript"
+src="js/jquery-ui.min.js"></script>
+<script type="text/javascript"
+src="js/bootstrapValidator.min.js"></script>
+<script type="text/javascript"
+src="js/bootstrap-table.min.js"></script>
+<script type="text/javascript"
+src="js/bootstrap-table-zh-CN.min.js"></script>
+<script type="text/javascript"
+src="js/jquery.md5.js"></script>
+<script type="text/javascript"
+src="js/jquery.mloading.js"></script>
+<script type="text/javascript"
+src="js/mainPage.js"></script>
+<script type="text/javascript"
+src="js/ajaxfileupload.js"></script>
+<script type="text/javascript"
+src="js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript"
+src="js/bootstrap-datetimepicker.zh-CN.js"></script>
+</body>
+</html>
