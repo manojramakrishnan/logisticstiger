@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.tigerlogistics.dao.RepositoryAdminMapper">
+  <resultMap type="com.tigerlogistics.model.RepositoryAdmin" id="repositoryAdmin">
+		<id property="id" column="REPO_ADMIN_ID"/>
+		<result property="name" column="REPO_ADMIN_NAME"/>
+		<result property="sex" column="REPO_ADMIN_SEX"/>
+		<result property="tel" column="REPO_ADMIN_TEL"/>
+		<result property="address" column="REPO_ADMIN_ADDRESS"/>
+		<result property="birth" column="REPO_ADMIN_BIRTH"/>
+		<result property="repositoryBelongID" column="REPO_ADMIN_REPOID"/>
+	</resultMap>
+	<select id="selectByID" resultMap="repositoryAdmin">
+		select
+			REPO_ADMIN_ID,
+			REPO_ADMIN_NAME,
+			REPO_ADMIN_SEX,
+			REPO_ADMIN_TEL,
+			REPO_ADMIN_ADDRESS,
+			REPO_ADMIN_BIRTH,
+			REPO_ADMIN_REPOID
+		from
+			wms_repo_admin
+		where
+			REPO_ADMIN_ID = #{id}
+	</select>
+	</mapper>
+	
