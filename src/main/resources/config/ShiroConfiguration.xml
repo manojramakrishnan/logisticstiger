@@ -61,7 +61,7 @@
  </bean>
 
  <!-- Shiro Session 监听器 -->
- <bean id="shiroSessionListener" class="com.ken.wms.security.listener.SessionListener"/>
+ <bean id="shiroSessionListener" class="com.tigerlogistics.listener.SessionListener"/>
 
  <!-- 缓存管理器 -->
  <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
@@ -92,7 +92,7 @@
  </bean>
 
  <!-- 自定义用户授权与认证 Realm 的配置 -->
- <bean id="userAuthorizingRealm" class="com.ken.wms.security.realms.UserAuthorizingRealm"/>
+ <bean id="userAuthorizingRealm" class="com.tigerlogistics.realms.UserAuthorizingRealm"/>
 
 
  <!-- ============================================
@@ -120,7 +120,7 @@
  </bean>
 
  <!-- 可处理 Ajax 请求的 authc Filter -->
- <bean id="extendFormAuthenticationFilter" class="com.ken.wms.security.filter.ExtendFormAuthenticationFilter">
+ <bean id="extendFormAuthenticationFilter" class="com.tigerlogistics.filter.ExtendFormAuthenticationFilter">
  <property name="usernameParam" value="username"/>
  <property name="passwordParam" value="password"/>
  <property name="rememberMeParam" value="rememberMe"/>
@@ -128,10 +128,10 @@
  </bean>
 
  <!-- 多角色权限验证 Filter -->
- <bean id="anyOfRoles" class="com.ken.wms.security.filter.AnyOfRolesAuthorizationFilter"/>
+ <bean id="anyOfRoles" class="com.tigerlogistics.filter.AnyOfRolesAuthorizationFilter"/>
 
  <!-- 并发登陆人数控制 Filter -->
- <bean id="kickOutSessionControlFilter" class="com.ken.wms.security.filter.KickoutSessionControlFilter">
+ <bean id="kickOutSessionControlFilter" class="com.tigerlogistics.filter.KickoutSessionControlFilter">
  <property name="kickOutUrl" value="/login"/>
  <property name="kickOutAfter" value="false"/>
  <property name="maxSessionNum" value="1"/>
@@ -143,5 +143,5 @@
  <bean id="filterChainDefinitionMap" factory-bean="filterChainDefinitionMapBuilder"
  factory-method="builderFilterChainDefinitionMap"/>
  <bean id="filterChainDefinitionMapBuilder"
- class="com.ken.wms.security.service.FilterChainDefinitionMapBuilder"/>
+ class="com.tigerlogistics.service.FilterChainDefinitionMapBuilder"/>
 </beans>
