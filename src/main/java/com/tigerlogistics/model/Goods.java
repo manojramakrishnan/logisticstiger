@@ -7,7 +7,7 @@ public class Goods {
 	private String name;
 	private String type;
 	private String size;
-	private String value;
+	private Double value;
 	
 	
 	@Override
@@ -39,10 +39,10 @@ public class Goods {
 	public void setSize(String size) {
 		this.size = size;
 	}
-	public String getValue() {
+	public Double  getValue() {
 		return value;
 	}
-	public void setValue(String value) {
+	public void setValue(Double value) {
 		this.value = value;
 	}
 }

@@ -16,6 +16,24 @@
 		<bean id="EJConvertor" class="com.tigerlogistics.util.EJConvertor">
         <constructor-arg type="java.lang.String" value="config/EJConvertorConfig.xml"/>
     </bean>
+  
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="user" value="${jdbc.user}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="driverClass" value="${jdbc.driverClass}"/>
+        <property name="jdbcUrl" value="${jdbc.jdbcUrl}"/>
+        <property name="testConnectionOnCheckout" value="${jdbc.testConnectionOnCheckout}"/>
+    </bean>
+    
+    <bean id="SqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:config/MyBatisConfiguration.xml"/>
+    </bean>
+    
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.tigerlogistics.dao"/>
+    </bean>
+    
     </beans>
     
     		

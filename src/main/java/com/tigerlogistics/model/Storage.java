@@ -6,9 +6,9 @@ public class Storage {
 	private String goodsName;
 	private String goodsSize;
 	private String goodsType;
-	private String goodsValue;
+	private Double goodsValue;
 	private Integer repositoryId;
-	private Integer number;
+	private Long number;
 
 	public Integer getGoodsID() {
 		return goodsID;
@@ -42,11 +42,11 @@ public class Storage {
 		this.goodsType = goodsType;
 	}
 
-	public String getGoodsValue() {
+	public Double getGoodsValue() {
 		return goodsValue;
 	}
 
-	public void setGoodsValue(String goodsValue) {
+	public void setGoodsValue(Double goodsValue) {
 		this.goodsValue = goodsValue;
 	}
 
@@ -58,11 +58,11 @@ public class Storage {
 		this.repositoryId = repositoryId;
 	}
 
-	public Integer getNumber() {
+	public Long getNumber() {
 		return number;
 	}
 
-	public void setNumber(Integer number) {
+	public void setNumber(Long number) {
 		this.number = number;
 	}
 
