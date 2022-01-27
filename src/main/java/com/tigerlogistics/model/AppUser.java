@@ -42,6 +42,16 @@ public class AppUser implements UserDetails {
 	private Boolean locked;
 	private Boolean enable;
 	
+	
+	public AppUser(String email, String name, String password, String userName, AppUserRole appUserRole) {
+		super();
+		this.email = email;
+		this.name = name;
+		this.password = password;
+		this.userName = userName;
+		this.appUserRole = appUserRole;
+	}
+
 	@Override
 	public String toString() {
 		return "AppUser [id=" + id + ", email=" + email + ", name=" + name + ", password=" + password + ", userName="

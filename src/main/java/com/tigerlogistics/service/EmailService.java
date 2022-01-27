@@ -1,5 +1,7 @@
 package com.tigerlogistics.service;
 
+import java.util.Properties;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
@@ -25,16 +27,32 @@ public class EmailService implements EmailSender {
 	@Override
     @Async
     public void send(String to, String email) {
+		
+		// Assuming you are sending email from through gmails smtp
+        String host = "smtp.gmail.com";
+
+        // Get system properties
+        Properties properties = System.getProperties();
+
+        // Setup mail server
+        properties.put("mail.smtp.host", host);
+        properties.put("mail.smtp.port", "465");
+        properties.put("mail.smtp.ssl.enable", "true");
+        properties.put("mail.smtp.auth", "true");
+		
         try {
         	
         	JavaMailSenderImpl mailSender=new JavaMailSenderImpl();
+        	mailSender.setJavaMailProperties(properties);
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper =
                     new MimeMessageHelper(mimeMessage, "utf-8");
             helper.setText(email, true);
             helper.setTo(to);
             helper.setSubject("Confirm your email");
-            helper.setFrom("manoj.rgv@gmail.com");
+            helper.setFrom("akhilmurali662@gmail.com");
+            mailSender.setUsername("akhilmurali662@gmail.com");
+            mailSender.setPassword("aufsvelxmxbsqkmx");
             mailSender.send(mimeMessage);
         } 
         
