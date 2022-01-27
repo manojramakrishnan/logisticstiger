@@ -50,9 +50,14 @@ public class EmailService implements EmailSender {
             helper.setText(email, true);
             helper.setTo(to);
             helper.setSubject("Confirm your email");
-            helper.setFrom("akhilmurali662@gmail.com");
-            mailSender.setUsername("akhilmurali662@gmail.com");
-            mailSender.setPassword("aufsvelxmxbsqkmx");
+            //helper.setFrom("akhilmurali662@gmail.com");
+            helper.setFrom("manoj.rgv@gmail.com");
+//            mailSender.setUsername("akhilmurali662@gmail.com");
+            mailSender.setUsername("manoj.rgv@gmail.com");
+            
+            mailSender.setPassword("mlwxsufwtznesoqg");
+//            mailSender.setPassword("aufsvelxmxbsqkmx");
+            
             mailSender.send(mimeMessage);
         } 
         

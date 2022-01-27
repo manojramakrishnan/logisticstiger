@@ -20,66 +20,53 @@ import com.tigerlogistics.appuser.AppUserRole;
 @Entity
 public class AppUser implements UserDetails {
 
+	public AppUser() {}
 	
-	
+	@Override
+	public String toString() {
+		return "AppUser [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", password=" + password + ", appUserRole=" + appUserRole + ", locked=" + locked + ", enabled="
+				+ enabled + "]";
+	}
+
 	@SequenceGenerator(
             name = "user_sequence",
             sequenceName = "user_sequence",
             allocationSize = 1
     )
-	@Id
-	@GeneratedValue(
+    @Id
+    @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "user_sequence"
     )
-	private long id;
-	private String email;
-	private String name;
-	private String password;
-	private String userName;
-	@Enumerated(EnumType.STRING)
-	private AppUserRole appUserRole;
-	private Boolean locked;
-	private Boolean enable;
-	
-	
-	public AppUser(String email, String name, String password, String userName, AppUserRole appUserRole) {
-		super();
-		this.email = email;
-		this.name = name;
-		this.password = password;
-		this.userName = userName;
-		this.appUserRole = appUserRole;
-	}
-
-	@Override
-	public String toString() {
-		return "AppUser [id=" + id + ", email=" + email + ", name=" + name + ", password=" + password + ", userName="
-				+ userName + ", appUserRole=" + appUserRole + ", locked=" + locked + ", enable=" + enable + "]";
-	}
-
-	public AppUser(long id, String email, String name, String password, String userName, AppUserRole appUserRole,
-			Boolean locked, Boolean enable) {
+    private Long id;
+    public AppUser(Long id, String firstName, String lastName, String email, String password, AppUserRole appUserRole,
+			Boolean locked, Boolean enabled) {
 		super();
 		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.email = email;
-		this.name = name;
 		this.password = password;
-		this.userName = userName;
 		this.appUserRole = appUserRole;
 		this.locked = locked;
-		this.enable = enable;
+		this.enabled = enabled;
 	}
 
-	public AppUser() {
-		// TODO Auto-generated constructor stub
-	}
+	private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
+    @Enumerated(EnumType.STRING)
+    private AppUserRole appUserRole;
+    private Boolean locked = false;
+    private Boolean enabled = false;
 
-	public long getId() {
+    public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -89,22 +76,6 @@ public class AppUser implements UserDetails {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
 	}
 
 	public AppUserRole getAppUserRole() {
@@ -123,60 +94,82 @@ public class AppUser implements UserDetails {
 		this.locked = locked;
 	}
 
-	public Boolean getEnable() {
-		return enable;
+	public Boolean getEnabled() {
+		return enabled;
 	}
 
-	public void setEnable(Boolean enable) {
-		this.enable = enable;
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		SimpleGrantedAuthority authority = new SimpleGrantedAuthority(appUserRole.name());
-		return Collections.singletonList(authority);
-	}
+	public AppUser(String firstName,
+                   String lastName,
+                   String email,
+                   String password,
+                   AppUserRole appUserRole) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.appUserRole = appUserRole;
+    }
 
-	@Override
-	public String getPassword() {
-		// TODO Auto-generated method stub
-		return password;
-	}
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        SimpleGrantedAuthority authority =
+                new SimpleGrantedAuthority(appUserRole.name());
+        return Collections.singletonList(authority);
+    }
 
-	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return userName;
-	}
+    @Override
+    public String getPassword() {
+        return password;
+    }
 
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
+    @Override
+    public String getUsername() {
+        return email;
+    }
 
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return !locked;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return enable;
-	}
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return !locked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
 
 	
 	

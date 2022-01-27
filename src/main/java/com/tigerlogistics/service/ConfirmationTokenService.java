@@ -1,5 +1,8 @@
 package com.tigerlogistics.service;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.tigerlogistics.model.ConfirmationToken;
@@ -19,4 +22,13 @@ public class ConfirmationTokenService {
 		// TODO Auto-generated method stub
 		confirmationTokenRepository.save(confirmationToken);
 	} 
+	
+	public Optional<ConfirmationToken> getToken(String token) {
+        return confirmationTokenRepository.findByToken(token);
+    }
+
+    public int setConfirmedAt(String token) {
+        return confirmationTokenRepository.updateConfirmedAt(
+                token, LocalDateTime.now());
+    }
 }
